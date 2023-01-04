@@ -5,7 +5,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
-import { FormControl } from '@material-ui/core';
+import { FormControl, Button } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -21,12 +21,45 @@ const useStyles = makeStyles((theme) => ({
 
 const RecipeCard = () => {
   const classes = useStyles();
+  const [meal, setMeal] = React.useState('');
+  const [mealFound, setMealFound] = React.useState(false);
   const [vegetables, setVegetables] = React.useState('');
   const [fruit, setFruit] = React.useState('');
   const [herbsAndSpices, setHerbsAndSpices] = React.useState('');
   const [fish, setFish] = React.useState('');
   const [seafood, setSeafood] = React.useState('');
   const [grains, setGrains] = React.useState('');
+
+  const recipes = [
+    {
+      ingredients: ['broccoli', 'wheat'],
+      meal: 'Broccoli Salad',
+    },
+    {
+      ingredients: ['herring', 'wheat'],
+      meal: 'Fish Sandwich',
+    },
+  ];
+
+  const determineMeal = () => {
+    const selectedIngredients = [vegetables, fruit, herbsAndSpices, fish, seafood, grains];
+
+    // Flatten the array of selected ingredients
+    const flatSelectedIngredients = selectedIngredients.flat();
+
+    // Find the first recipe that matches the selected ingredients
+    const matchingRecipe = recipes.find((recipe) => {
+      return recipe.ingredients.every((ingredient) => flatSelectedIngredients.includes(ingredient));
+    });
+
+    if (matchingRecipe) {
+      setMeal(matchingRecipe.meal);
+      setMealFound(true);
+    } else {
+      setMeal('');
+      setMealFound(false);
+    }
+  };
 
   return (
     <Card className={classes.card}>
@@ -43,9 +76,11 @@ const RecipeCard = () => {
         >
           <MenuItem value="">Vegetables</MenuItem>
           <MenuItem value="any">Any</MenuItem>
-          <MenuItem value="broccoli">Broccoli</MenuItem>
+          <MenuItem value="lettuce">Lettuce</MenuItem>
           <MenuItem value="carrots">Carrots</MenuItem>
           <MenuItem value="spinach">Spinach</MenuItem>
+          <MenuItem value="zuccini">Zuccini</MenuItem>
+          <MenuItem value="broccoli">Broccoli</MenuItem>
         </Select>
         </FormControl>
         <FormControl variant='outlined' fullWidth  label="Fruit" style={{ padding: '1rem' }}>
@@ -58,6 +93,11 @@ const RecipeCard = () => {
           <MenuItem value="">Fruit</MenuItem>
           <MenuItem value="any">Any</MenuItem>
           <MenuItem value="apple">Apple</MenuItem>
+          <MenuItem value="banana">Banana</MenuItem>
+          <MenuItem value="coconut">Coconut</MenuItem>
+          <MenuItem value="lemon">Lemon</MenuItem>
+          <MenuItem value="cherry">Cherry</MenuItem>
+          {/* Add options for fruit here */}       
         </Select>
         </FormControl>
         <FormControl variant='outlined' fullWidth  label="HerbsAndSpices" style={{ padding: '1rem' }}>
@@ -69,6 +109,10 @@ const RecipeCard = () => {
         >
           <MenuItem value="">Herbs and Spices</MenuItem>
           <MenuItem value="any">Any</MenuItem>
+          <MenuItem value="vanilla">Vanilla</MenuItem>
+          <MenuItem value="oregano">Oregano</MenuItem>
+          <MenuItem value="basil">Basil</MenuItem>
+          <MenuItem value="garlic">Garlic</MenuItem>
           {/* Add options for herbs and spices here */}
         </Select>
         </FormControl>
@@ -82,6 +126,9 @@ const RecipeCard = () => {
           <MenuItem value="">Fish</MenuItem>
           <MenuItem value="any">Any</MenuItem>
           <MenuItem value="herring">Herring</MenuItem>
+          <MenuItem value="salmon">Salmon</MenuItem>
+          <MenuItem value="trout">Trout</MenuItem>
+          <MenuItem value="tuna">Tuna</MenuItem>
           {/* Add options for fish here */}
         </Select>
         </FormControl>
@@ -94,7 +141,9 @@ const RecipeCard = () => {
         >
           <MenuItem value="">Seafood</MenuItem>
           <MenuItem value="any">Any</MenuItem>
-          {/* Add options for seafood
+          <MenuItem value="shrimp">Shrimp</MenuItem>
+          <MenuItem value="crab">Crab</MenuItem>
+          <MenuItem value="lobster">Lobster</MenuItem>
           {/* Add options for seafood here */}
         </Select>
         </FormControl>
@@ -107,11 +156,24 @@ const RecipeCard = () => {
         >
           <MenuItem value="">Grains</MenuItem>
           <MenuItem value="any">Any</MenuItem>
+          <MenuItem value="wheat">Wheat</MenuItem>
+          <MenuItem value="rice">Rice</MenuItem>
           {/* Add options for grains here */}
         </Select>
         </FormControl>
+        <Card style={{ marginTop: '1rem', marginBottom: '1rem' ,backgroundColor: '#fefefe' }}>
+          <CardContent>
+            <Typography variant="h5" component="h2">
+              
+            </Typography>
+            <Typography variant="body1" component="p">
+              {meal}
+            </Typography>
+          </CardContent>
+        </Card>
+        <Button onClick={determineMeal} variant='outlined'>Determine Meal</Button>
       </CardContent>
-    </Card>  
+    </Card>
   );
 };
 
