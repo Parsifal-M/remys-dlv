@@ -30,36 +30,121 @@ const RecipeCard = () => {
   const [seafood, setSeafood] = React.useState('');
   const [grains, setGrains] = React.useState('');
 
-  const recipes = [
-    {
-      ingredients: ['broccoli', 'wheat'],
-      meal: 'Broccoli Salad',
-    },
-    {
-      ingredients: ['herring', 'wheat'],
-      meal: 'Fish Sandwich',
-    },
-  ];
+  const recipes = [  
+  {    
+    name: 'Arednellian Pickled Herring',    
+    ingredients: ['herring', 'lemon', 'onion', 'garlic', 'any herb']
+  },
+  {
+    name: 'Bell Pepper Puffs',
+    ingredients: ['bell pepper', 'eggs', 'cheese']
+  },
+  {
+    name: 'Cheese Platter',
+    ingredients: ['cheese']
+  },
+  {
+    name: 'Chili Pepper Puffs',
+    ingredients: ['chilis', 'eggs', 'cheese']
+  },
+  {
+    name: 'Crackers',
+    ingredients: ['wheat']
+  },
+  {
+    name: 'Creamy Soup',
+    ingredients: ['milk', 'any vegetable', 'potato', 'any herb']
+  },
+  {
+    name: 'Crudités',
+    ingredients: ['any vegetable']
+  },
+  {
+    name: 'Eggplant Puffs',
+    ingredients: ['eggplant', 'eggs', 'cheese']
+  },
+  {
+    name: 'French Fries',
+    ingredients: ['canola', 'potato']
+  },
+  {
+    name: 'Gazpacho',
+    ingredients: ['onion', 'tomato', 'cucumber', 'any herb']
+  },
+  {
+    name: 'Green Salad',
+    ingredients: ['any vegetable', 'lettuce']
+  },
+  {
+    name: 'Grilled Vegetables',
+    ingredients: ['any vegetable']
+  },
+  {
+    name: 'Grilled Veggie Platter',
+    ingredients: ['any vegetable', 'any vegetable', 'any vegetable']
+  },
+  {
+    name: 'Hard-Boiled Eggs',
+    ingredients: ['eggs']
+  },
+  {
+    name: 'Large Seafood Platter',
+    ingredients: ['any seafood', 'any seafood', 'any seafood', 'any seafood', 'lemon']
+  },
+  {
+    name: 'Marinated Herring',
+    ingredients: ['herring', 'onion']
+  },
+  {
+    name: 'Okra Soup',
+    ingredients: ['okra']
+  },
+  {
+    name: 'Onion Puffs',
+    ingredients: ['onion', 'eggs', 'cheese']
+  },
+  {
+    name: 'Oyster Platter',
+    ingredients: ['oyster', 'lemon']
+  },
+  {
+    name: 'Pickled Herring',
+    ingredients: ['herring', 'lemon', 'onion', 'herb']
+  },
+  {
+    name: 'Potato Leek Soup',
+    ingredients: ['leak', 'potato', 'milk', 'onion', 'garlic']
+  },
+  {
+    name: 'Potato Puffs',
+    ingredients: ['potato', 'eggs', 'cheese']
+  },
+  {
+    name: 'Pottage',
+    ingredients: ['potato', 'any vegetable', 'any herb']
+  }
+];
 
-  const determineMeal = () => {
-    const selectedIngredients = [vegetables, fruit, herbsAndSpices, fish, seafood, grains];
+const determineMeal = () => {
+  const selectedIngredients = [vegetables, fruit, herbsAndSpices, fish, seafood, grains];
 
-    // Flatten the array of selected ingredients
-    const flatSelectedIngredients = selectedIngredients.flat();
+  // Flatten the array of selected ingredients
+  const flatSelectedIngredients = selectedIngredients.flat();
 
-    // Find the first recipe that matches the selected ingredients
-    const matchingRecipe = recipes.find((recipe) => {
-      return recipe.ingredients.every((ingredient) => flatSelectedIngredients.includes(ingredient));
-    });
+  // Find the first recipe that matches the selected ingredients
+  const matchingRecipe = recipes.find((recipe) => {
+    return recipe.ingredients.every((ingredient) => flatSelectedIngredients.includes(ingredient));
+  });
 
-    if (matchingRecipe) {
-      setMeal(matchingRecipe.meal);
-      setMealFound(true);
-    } else {
-      setMeal('');
-      setMealFound(false);
-    }
-  };
+  if (matchingRecipe) {
+    setMeal(matchingRecipe.name);
+    setMealFound(true);
+  } else {
+    setMeal('No match');
+    setMealFound(false);
+  }
+};
+
 
   return (
     <Card className={classes.card}>
@@ -81,6 +166,7 @@ const RecipeCard = () => {
           <MenuItem value="spinach">Spinach</MenuItem>
           <MenuItem value="zuccini">Zuccini</MenuItem>
           <MenuItem value="broccoli">Broccoli</MenuItem>
+          <MenuItem value="onion">Onion</MenuItem>
         </Select>
         </FormControl>
         <FormControl variant='outlined' fullWidth  label="Fruit" style={{ padding: '1rem' }}>
