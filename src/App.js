@@ -1,10 +1,10 @@
 import './App.css';
-import IngredientCard from './components/RecipeCard';
+import RecipeCard from './components/RecipeCard';
 
 function App() {
   return (
     <div className="App">
-      <IngredientCard />
+      <RecipeCard />
 
     </div>
   );
