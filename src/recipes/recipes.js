@@ -3,7 +3,7 @@
 const recipes = [  
     {    
       name: 'Arednellian Pickled Herring',    
-      ingredients: ['fish', 'lemon', 'onion', 'garlic', 'any herb']
+      ingredients: ['herring', 'lemon', 'onion', 'garlic', 'any herb']
     },
     {    
         name: 'Fish Sandwich',    
