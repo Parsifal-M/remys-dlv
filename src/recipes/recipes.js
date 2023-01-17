@@ -15,6 +15,7 @@ const recipes = [
     },
     {
       name: 'Apple Pie',
+      quantities: '1 x Apple, 1 x Wheat',
       ingredients: ['apples', 'wheat']
     }
     ];

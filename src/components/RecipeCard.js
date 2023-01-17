@@ -31,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
 const RecipeCard = () => {
   const classes = useStyles();
   const [meal, setMeal] = React.useState("");
+  const [quantities, setQuantities] = React.useState("");
   const [mealFound, setMealFound] = React.useState(false);
   const [selectedIngredient, setSelectedIngredient] = React.useState('');
 
@@ -44,6 +45,7 @@ const RecipeCard = () => {
 
     if (matchingRecipes.length > 0) {
       setMeal(matchingRecipes.map((recipe) => recipe.name).join("\n"));
+      setQuantities(matchingRecipes.map((recipe) => recipe.quantities).join("\n"));
       setMealFound(true);
     } else {
       setMealFound(false);
@@ -86,6 +88,11 @@ const RecipeCard = () => {
                 {meal.split("\n").map((meal) => (
                   <Typography variant="h6" component="h3" key={meal}>
                     {meal}
+                  </Typography>
+                ))}
+                {quantities.split("\n").map((quantities) => (
+                  <Typography variant="body2" component="p" key={quantities}>
+                    {quantities}
                   </Typography>
                 ))}
               </div>
