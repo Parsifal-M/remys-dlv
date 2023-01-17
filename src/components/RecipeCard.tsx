@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
-import { FormControl } from "@material-ui/core";
-import ingredients from "../ingredients/ingredients";
-import recipes from "../recipes/recipes";
+import FormControl from "@material-ui/core/FormControl";
+import { ingredients } from "../recipes/ingredients";
+import { Recipe, recipes } from "../recipes/recipes";
+
+interface Props {}
 
 const useStyles = makeStyles((theme) => ({
   ingredientscard: {
@@ -28,22 +30,24 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const RecipeCard = () => {
+export const RecipeCard: React.FC<Props> = () => {
   const classes = useStyles();
-  const [meal, setMeal] = React.useState("");
-  const [mealFound, setMealFound] = React.useState(false);
-  const [selectedIngredient, setSelectedIngredient] = React.useState('');
+  const [meal, setMeal] = useState("");
+  const [quantities, setQuantities] = useState("");
+  const [mealFound, setMealFound] = useState(false);
+  const [selectedIngredient, setSelectedIngredient] = useState("");
 
-  const determineMeal = (event) => {
+  const determineMeal = (event: React.ChangeEvent<{ value: unknown }>) => {
     // Find all recipes that match the selected ingredient
-    const matchingRecipes = recipes.filter((recipe) => {
-      return recipe.ingredients.includes(event.target.value);
+    const matchingRecipes = recipes.filter((recipe: Recipe) => {
+      return recipe.ingredients.includes(event.target.value as string);
     });
 
-    setSelectedIngredient(event.target.value);
+    setSelectedIngredient(event.target.value as string);
 
     if (matchingRecipes.length > 0) {
-      setMeal(matchingRecipes.map((recipe) => recipe.name).join("\n"));
+      setMeal(matchingRecipes.map((recipe: Recipe) => recipe.name).join("\n"));
+      setQuantities(matchingRecipes.map((recipe: Recipe) => recipe.quantities).join("\n"));
       setMealFound(true);
     } else {
       setMealFound(false);
@@ -64,41 +68,35 @@ const RecipeCard = () => {
                 fullWidth
                 variant="outlined"
                 className={classes.select}
-                value={selectedIngredient || 'Ingredient'}
+                value={selectedIngredient || "Ingredient"}
                 onChange={determineMeal}
               >
-                {ingredients.map((selectedIngredient) => (
+                {ingredients.map((selectedIngredient: string) => (
                   <MenuItem key={selectedIngredient} value={selectedIngredient}>
                     {selectedIngredient}
                   </MenuItem>
                 ))}
               </Select>
             </FormControl>
-            <br />
           </Typography>
         </CardContent>
       </Card>
-      <FormControl fullWidth>
+      {mealFound && (
         <Card className={classes.recipecard}>
           <CardContent>
-            {mealFound ? (
-              <div>
-                {meal.split("\n").map((meal) => (
-                  <Typography variant="h6" component="h3" key={meal}>
-                    {meal}
-                  </Typography>
-                ))}
-              </div>
-            ) : (
-              <Typography variant="h6" component="h3">
-                No meal found.
-              </Typography>
-            )}
+            <Typography variant="h5" component="h2">
+              You Can Make:
+            </Typography>
+            <Typography variant="body2" component="p">
+              <br />
+              {meal}
+              <br />
+              <br />
+              {quantities}
+            </Typography>
           </CardContent>
         </Card>
-      </FormControl>
+      )}
     </>
   );
 };
-
-export default RecipeCard;

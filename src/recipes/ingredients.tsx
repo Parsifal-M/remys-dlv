@@ -1,6 +1,6 @@
 // This file is used to export the ingredients array
 
-const ingredients = [
+export const ingredients = [
   'Ingredient',
   'fish',
   'coconut',
@@ -8,5 +8,3 @@ const ingredients = [
   'apples',
   'herring',
 ];
-
-export default ingredients;
